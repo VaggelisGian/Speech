@@ -18,10 +18,9 @@ from io import BytesIO
 from pathlib import Path
 from typing import Any, Optional, Self
 
-from scripts.tts_comparison_report.reporting.constants import TQDM_NCOLS
+from scripts.tts_comparison_report.reporting.constants import BENCHMARK_META, TQDM_NCOLS
 from scripts.tts_comparison_report.reporting.storage import BaseStorage
 from tqdm import tqdm
-
 
 _REQUIRED_SAMPLE_ID_KEYS: list[str] = [
     "pred_audio_filepath",
@@ -334,7 +333,8 @@ class BucketData:
                 storage=storage,
             )
             if obj.configuration_str is None:
-                suffix = f"_{name}"
+                lang = BENCHMARK_META[name]
+                suffix = f"_{lang}_{name}"
                 obj.configuration_str = dir_name[: -len(suffix)]
 
         return obj
